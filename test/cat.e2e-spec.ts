@@ -82,7 +82,13 @@ describe('Cats (e2e)', () => {
     })
   })
 
-  describe('GET cat /breed/:breed', () => {
+  describe('GET cat /:breed', () => {
+    it('should throw 404 for not found', async () => {
+      const { status } = await request(app.getHttpServer()).get('/cat/frog')
+
+      expect(status).toBe(404)
+    })
+
     it('should get a labrador', async () => {
       const { status, body } = await request(app.getHttpServer()).get('/cat/Labrador')
 
@@ -119,9 +125,9 @@ describe('Cats (e2e)', () => {
 
       await request(app.getHttpServer()).delete(`/cat/${body.id}`)
 
-      const resp = await request(app.getHttpServer()).get('/cat/Labrador')
+      const { status } = await request(app.getHttpServer()).get('/cat/Labrador')
 
-      expect(resp.body).toEqual({})
+      expect(status).toBe(404)
     })
   })
 
