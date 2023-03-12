@@ -13,4 +13,8 @@ export class CatService {
   async getCats({ skip, take }: { skip: number, take: number }) {
     return await this.databaseService.cat.findMany({ skip, take })
   }
+
+  async getCatByBreed(breed: string) {
+    return await this.databaseService.cat.findFirst({ where: { breed } })
+  }
 }

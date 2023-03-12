@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CatDto } from './dto/cat.dto';
 
@@ -14,5 +14,10 @@ export class CatController {
   @Get()
   getCats(@Query() { skip, take }: { skip: number, take: number }): Promise<CatDto[]> {
     return this.catService.getCats({ skip, take })
+  }
+
+  @Get('/:breed')
+  getCatByBreed(@Param('breed') breed): Promise<CatDto> {
+    return this.catService.getCatByBreed(breed)
   }
 }
