@@ -22,7 +22,7 @@ export class CatController {
   }
 
   @Put()
-  updateCat(@Body() catDto: CatDto): Promise<CatDto> {
+  updateCat(@Body() catDto: Partial<CatDto>): Promise<CatDto> {
     return this.catService.updateCat(catDto)
   }
 }
