@@ -97,6 +97,23 @@ describe('Cats (e2e)', () => {
     })
   })
 
+  describe('PUT /cat', () => {
+    it('should update labrador weight', async () => {
+      const { status, body } = await request(app.getHttpServer()).put('/cat')
+        .send({
+          breed: 'Labrador', weight: 7
+        })
+
+      expect(status).toBe(200);
+      expect(body.breed).toEqual('Labrador')
+      expect(body.origin).toEqual('mars')
+      expect(body.description).toEqual('happy go lucky goofy idiot')
+      expect(body.weight).toEqual(7)
+      expect(body.temperament).toEqual('dopey')
+      expect(body.image).toEqual('labrador image')
+    })
+  })
+
 
 
 
