@@ -51,6 +51,38 @@ describe('Cats (e2e)', () => {
     });
   })
 
+  describe('GET /cats', () => {
+    it('should return 3 cat', async () => {
+      await request(app.getHttpServer())
+        .post('/cat')
+        .send({
+          breed: 'Corgi',
+          origin: 'pluto',
+          description: 'puffy',
+          weight: 7,
+          temperament: 'dopey',
+          image: 'Corgi image'
+        });
+
+      await request(app.getHttpServer())
+        .post('/cat')
+        .send({
+          breed: 'Pitbull',
+          origin: 'Venus',
+          description: 'Buff',
+          weight: 15,
+          temperament: 'stoic',
+          image: 'Pitbull image'
+        });
+
+
+      const { status, body } = await request(app.getHttpServer()).get('/cat')
+
+      expect(status).toBe(200);
+      expect(body.length).toBe(3)
+    })
+  })
+
 
 
 
