@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { AdminGuard } from '../auth/admin.strategy';
 import { CatService } from './cat.service';
 import { CatDto } from './dto/cat.dto';
 
@@ -6,6 +7,7 @@ import { CatDto } from './dto/cat.dto';
 export class CatController {
   constructor(private catService: CatService) { }
 
+  @UseGuards(AdminGuard)
   @Post()
   createCat(@Body() catDto: CatDto): Promise<CatDto> {
     return this.catService.createCat(catDto)
@@ -21,11 +23,13 @@ export class CatController {
     return this.catService.getCatByBreed(breed)
   }
 
+  @UseGuards(AdminGuard)
   @Put()
   updateCat(@Body() catDto: Partial<CatDto>): Promise<CatDto> {
     return this.catService.updateCat(catDto)
   }
 
+  @UseGuards(AdminGuard)
   @Delete('/:uuid')
   deleteCat(@Param('uuid') uuid): void {
     this.catService.deleteCat(uuid)
