@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { CatDto } from '../cat/dto/cat.dto';
 
@@ -16,7 +16,9 @@ export class CatService {
   }
 
   async getCatByBreed(breed: string) {
-    return await this.databaseService.cat.findFirst({ where: { breed } })
+    const cat = await this.databaseService.cat.findFirst({ where: { breed } })
+    if (!cat) throw new NotFoundException('cat breed does not exist')
+    return cat
   }
 
   async updateCat(update: Partial<CatDto>): Promise<CatDto> {
