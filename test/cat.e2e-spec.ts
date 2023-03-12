@@ -1,6 +1,5 @@
 import { AppModule } from '../src/app.module';
 import { DatabaseService } from '../src/database/database.service';
-import { Cat } from '@prisma/client';
 import { useContainer } from 'class-validator';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -51,8 +50,8 @@ describe('Cats (e2e)', () => {
     });
   })
 
-  describe('GET /cats', () => {
-    it('should return 3 cat', async () => {
+  describe('GET /cat', () => {
+    it('should return 3 cats', async () => {
       await request(app.getHttpServer())
         .post('/cat')
         .send({
