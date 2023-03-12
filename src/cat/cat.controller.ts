@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CatService } from './cat.service';
 import { CatDto } from './dto/cat.dto';
 
@@ -24,5 +24,10 @@ export class CatController {
   @Put()
   updateCat(@Body() catDto: Partial<CatDto>): Promise<CatDto> {
     return this.catService.updateCat(catDto)
+  }
+
+  @Delete('/:uuid')
+  deleteCat(@Param('uuid') uuid): void {
+    this.catService.deleteCat(uuid)
   }
 }

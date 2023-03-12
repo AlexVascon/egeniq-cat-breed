@@ -22,4 +22,8 @@ export class CatService {
     if (!update.breed) throw new BadRequestException('field "breed" is required')
     return await this.databaseService.cat.update({ where: { breed: update.breed }, data: update })
   }
+
+  async deleteCat(uuid: string): Promise<void> {
+    await this.databaseService.cat.delete({ where: { id: uuid } })
+  }
 }
