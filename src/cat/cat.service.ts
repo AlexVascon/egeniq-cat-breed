@@ -11,6 +11,7 @@ export class CatService {
   }
 
   async getCats({ skip, take }: { skip: number, take: number }) {
+    if (take > 50) take = 50
     return await this.databaseService.cat.findMany({ skip, take })
   }
 
