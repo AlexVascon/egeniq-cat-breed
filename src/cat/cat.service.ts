@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { CatDto } from '../cat/dto/cat.dto';
 
@@ -16,5 +16,10 @@ export class CatService {
 
   async getCatByBreed(breed: string) {
     return await this.databaseService.cat.findFirst({ where: { breed } })
+  }
+
+  async updateCat(update: Partial<CatDto>): Promise<CatDto> {
+    if (!update.breed) throw new BadRequestException('field "breed" is required')
+    return await this.databaseService.cat.update({ where: { breed: update.breed }, data: update })
   }
 }
