@@ -114,6 +114,18 @@ describe('Cats (e2e)', () => {
     })
   })
 
+  describe('DELETE /cat/uuid', () => {
+    it('should delete Labrador', async () => {
+      const { body } = await request(app.getHttpServer()).get('/cat/Labrador')
+
+      await request(app.getHttpServer()).delete(`/cat/${body.id}`)
+
+      const resp = await request(app.getHttpServer()).get('/cat/Labrador')
+
+      expect(resp.body).toEqual({})
+    })
+  })
+
 
 
 
