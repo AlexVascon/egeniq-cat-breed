@@ -83,6 +83,20 @@ describe('Cats (e2e)', () => {
     })
   })
 
+  describe('GET cat /breed/:breed', () => {
+    it('should get a labrador', async () => {
+      const { status, body } = await request(app.getHttpServer()).get('/cat/Labrador')
+
+      expect(status).toBe(200);
+      expect(body.breed).toEqual('Labrador')
+      expect(body.origin).toEqual('mars')
+      expect(body.description).toEqual('happy go lucky goofy idiot')
+      expect(body.weight).toEqual(13)
+      expect(body.temperament).toEqual('dopey')
+      expect(body.image).toEqual('labrador image')
+    })
+  })
+
 
 
 
